@@ -25,6 +25,18 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
+    this.init();
+
+    this.eventBusSub = this.eventBusService.on('logout', () => {
+      this.logout();
+    });
+
+    this.eventBusService.on('login', () => {
+      this.init();
+    });
+  }
+
+  private init () {
     this.isLoggedIn = this.storageService.isLoggedIn();
 
     if (this.isLoggedIn) {
@@ -36,11 +48,8 @@ export class AppComponent {
 
       this.username = user.username;
     }
-
-    this.eventBusSub = this.eventBusService.on('logout', () => {
-      this.logout();
-    });
   }
+
 
   logout(): void {
     this.authService.logout().subscribe({
