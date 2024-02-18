@@ -36,7 +36,8 @@ export class AppComponent {
       this.logout();
     });
 
-    this.eventBusService.on('login', () => {
+    this.eventBusService.on('login', (value: string)  => {
+      console.log('redirect', value);
       this.init();
     });
   }

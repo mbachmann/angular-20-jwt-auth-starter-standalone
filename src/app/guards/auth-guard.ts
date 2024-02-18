@@ -25,8 +25,12 @@ class PermissionsService {
       return true;
     } else {
       console.log("no access rights, need role " + allowedRoles)
+      if (this.authService.isLoggedIn()) {
+        this.router.navigate(["/", "401"], {queryParams: { redirect: redirectTo }});
+      } else {
+        this.router.navigate(["/", "login"], {queryParams: { redirect: redirectTo }});
+      }
 
-      this.router.navigate(["/", "401"], {queryParams: { redirect: redirectTo }});
       // Redirect or handle unauthorized access
       return false;
     }
