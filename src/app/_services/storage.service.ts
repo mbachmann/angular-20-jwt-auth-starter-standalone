@@ -22,14 +22,11 @@ export class StorageService {
     if (user) {
       return JSON.parse(user);
     }
-
     return {};
   }
 
   public isLoggedIn(): boolean {
     const user = window.sessionStorage.getItem(USER_KEY);
     return !!user;
-
-
   }
 }
