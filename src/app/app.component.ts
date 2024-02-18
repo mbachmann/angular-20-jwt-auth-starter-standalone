@@ -3,11 +3,15 @@ import { Subscription } from 'rxjs';
 import { StorageService } from './_services/storage.service';
 import { AuthService } from './_services/auth.service';
 import { EventBusService } from './_shared/event-bus.service';
+import { NgIf } from '@angular/common';
+import {RouterLinkActive, RouterLink, RouterOutlet, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: true,
+    imports: [RouterLinkActive, RouterLink, NgIf, RouterOutlet]
 })
 export class AppComponent {
   private roles: string[] = [];
@@ -21,7 +25,8 @@ export class AppComponent {
   constructor(
     private storageService: StorageService,
     private authService: AuthService,
-    private eventBusService: EventBusService
+    private eventBusService: EventBusService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,8 +61,10 @@ export class AppComponent {
       next: res => {
         console.log(res);
         this.storageService.clean();
+        this.router.navigate(["/","home"]).then(nav => {
+          window.location.reload();
+        });
 
-        window.location.reload();
       },
       error: err => {
         console.log(err);

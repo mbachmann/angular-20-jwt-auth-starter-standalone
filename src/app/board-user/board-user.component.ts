@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 
 @Component({
-  selector: 'app-board-user',
-  templateUrl: './board-user.component.html',
-  styleUrls: ['./board-user.component.css']
+    selector: 'app-board-user',
+    templateUrl: './board-user.component.html',
+    styleUrls: ['./board-user.component.css'],
+    standalone: true
 })
 export class BoardUserComponent implements OnInit {
   content?: string;

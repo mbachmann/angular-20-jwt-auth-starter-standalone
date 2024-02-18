@@ -9,9 +9,8 @@ describe('BoardModeratorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [ BoardModeratorComponent ]
-    })
+    imports: [HttpClientTestingModule, BoardModeratorComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(BoardModeratorComponent);

@@ -6,13 +6,11 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule, HttpClientTestingModule
-      ],
-      declarations: [
+    imports: [
+        RouterTestingModule, HttpClientTestingModule,
         AppComponent
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   });
 
   it('should create the app', () => {

@@ -9,9 +9,8 @@ describe('BoardAdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [ BoardAdminComponent ]
-    })
+    imports: [HttpClientTestingModule, BoardAdminComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(BoardAdminComponent);
