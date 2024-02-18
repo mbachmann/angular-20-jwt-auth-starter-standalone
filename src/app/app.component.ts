@@ -15,7 +15,7 @@ export class AppComponent {
   showAdminBoard = false;
   showModeratorBoard = false;
   username?: string;
-
+  title: string = "angular-17-jwt-auth";
   eventBusSub?: Subscription;
 
   constructor(

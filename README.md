@@ -1,9 +1,9 @@
-# Angular 15 JWT Authentication & Authorization example with Rest API
+# Angular 17 JWT Authentication & Authorization example with Rest API (no standalone)
 
 - Backend: https://github.com/mbachmann/spring-boot-3-starter-security.git
-- Frontend: https://github.com/mbachmann/angular-15-jwt-auth-starter.git
+- Frontend: https://github.com/mbachmann/angular-17-jwt-auth-starter.git
 
-Build Angular 15 JWT Authentication & Authorization example with Rest Api, HttpOnly Cookie and JWT (including HttpInterceptor, Router & Form Validation).
+Build Angular 17 JWT Authentication & Authorization example with Rest Api, HttpOnly Cookie and JWT (including HttpInterceptor, Router & Form Validation).
 - JWT Authentication Flow for User Registration (Signup) & User Login
 - Project Structure with HttpInterceptor, Router
 - Way to implement HttpInterceptor
