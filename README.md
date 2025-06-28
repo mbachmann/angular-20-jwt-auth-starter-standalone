@@ -15,7 +15,7 @@ Build Angular 20 JWT Authentication & Authorization example with Rest Api, HttpO
 - How to implement User Logout
 
 ## Flow for User Registration and User Login
-For JWT – Token based Authentication with Rest API,  3 endpoints:
+For JWT – Token-based Authentication with Rest API,  3 endpoints:
 - POST `api/auth/signup` for User Registration
 - POST `api/auth/signin` for User Login
 - POST `api/auth/signout` for User Logout
@@ -26,3 +26,86 @@ For JWT – Token based Authentication with Rest API,  3 endpoints:
 - GET `api/test/mod` for Moderator
 - GET `api/test/admin` for Admin
 - GET `api/test/all` for Public
+
+## Create a Docker Container, Run and Publish to Docker
+
+Replace **uportal** with your **dockerhub id** in the script files build.sh and build-arm.sh.
+
+**For intel architecture:**
+
+A preconfigured shell script includes the build command:
+
+```shell
+./build.sh
+```
+
+**For arm64v8 architecture (e.g. MAC Mx):** [https://hub.docker.com/r/arm64v8/nginx/](https://hub.docker.com/r/arm64v8/nginx/)
+
+A preconfigured shell script includes the build command:
+
+```shell
+./build-arm.sh
+```
+
+```
+$  docker login
+$  docker login --username uportal --password
+$  docker push uportal/todo-app
+```
+
+<br/>
+
+Alternative way for login:
+
+```
+cat ~/.key/my_password.txt | docker login --username uportal --password-stdin
+```
+
+## Target Deployment Platform (Linux, Mac, Windows)
+
+Login to deployment platform with a container infrastructure:
+
+<br/>
+
+Replace **uportal** with your **dockerhub id**.
+
+<br/>
+
+```
+$  docker pull uportal/todo-app
+```
+
+<br/>
+
+### Run the app with a docker-compose file
+
+Start the App in detached mode with:
+
+```
+$  docker compose up -d
+```
+
+<br/>
+
+Start the App with log output in the console:
+
+```
+$  docker compose up
+```
+
+or with specific docker-compose file (e.g. on linux with a traefik reverse proxy)
+
+```
+$  docker compose -f docker-compose-traefik-v3.yml up
+```
+
+<br/>
+
+Delete containers:
+
+```
+$  docker compose rm
+```
+
+
+

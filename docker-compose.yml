@@ -1,0 +1,9 @@
+services:
+  angular-20-jwt-auth:
+    image: uportal/angular-20-jwt-auth:latest
+
+    restart: unless-stopped
+    ports:
+      - '4000:80'
+    environment:
+      API_BASE_PATH: http://localhost:8080
