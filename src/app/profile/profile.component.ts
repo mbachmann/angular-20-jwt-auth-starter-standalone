@@ -6,7 +6,6 @@ import { NgIf, NgFor } from '@angular/common';
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css'],
-    standalone: true,
     imports: [NgIf, NgFor]
 })
 export class ProfileComponent implements OnInit {

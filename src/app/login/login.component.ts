@@ -11,7 +11,6 @@ import {ActivatedRoute, Router} from "@angular/router";
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    standalone: true,
     imports: [NgIf, FormsModule, NgClass]
 })
 export class LoginComponent implements OnInit {
