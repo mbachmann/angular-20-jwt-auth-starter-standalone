@@ -1,32 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { StorageService } from './_services/storage.service';
 import { AuthService } from './_services/auth.service';
 import { EventBusService } from './_shared/event-bus.service';
-import { NgIf } from '@angular/common';
-import {RouterLinkActive, RouterLink, RouterOutlet, Router} from '@angular/router';
+
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    imports: [RouterLinkActive, RouterLink, NgIf, RouterOutlet]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  imports: [RouterLinkActive, RouterLink, RouterOutlet],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private storageService = inject(StorageService);
+  private authService = inject(AuthService);
+  private eventBusService = inject(EventBusService);
+  private router = inject(Router);
+
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
   username?: string;
-  title: string = "angular-17-jwt-auth";
+  title = 'angular-20-jwt-auth';
   eventBusSub?: Subscription;
-
-  constructor(
-    private storageService: StorageService,
-    private authService: AuthService,
-    private eventBusService: EventBusService,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -35,13 +33,13 @@ export class AppComponent {
       this.logout();
     });
 
-    this.eventBusService.on('login', (value: string)  => {
+    this.eventBusService.on('login', (value: string) => {
       console.log('redirect', value);
       this.init();
     });
   }
 
-  private init () {
+  private init() {
     this.isLoggedIn = this.storageService.isLoggedIn();
 
     if (this.isLoggedIn) {
@@ -55,20 +53,18 @@ export class AppComponent {
     }
   }
 
-
   logout(): void {
     this.authService.logout().subscribe({
       next: res => {
         console.log(res);
         this.storageService.clean();
-        this.router.navigate(["/","home"]).then(nav => {
-          window.location.reload();
+        this.router.navigate(['/', 'home']).then(nav => {
+          if (nav) window.location.reload();
         });
-
       },
       error: err => {
         console.log(err);
-      }
+      },
     });
   }
 }

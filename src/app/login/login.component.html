@@ -1,74 +1,66 @@
 <div class="col-md-12">
   <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-      alt="avatar"
-    />
+    <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" alt="avatar" />
 
-    <form
-      *ngIf="!isLoggedIn"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input
-          id="username"
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          #username="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
-        />
-        <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
-          Username is required!
+    @if (!isLoggedIn) {
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            name="username"
+            [(ngModel)]="form.username"
+            required
+            #username="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && username.errors }" />
+          @if (username.errors && f.submitted) {
+            <div class="invalid-feedback">Username is required!</div>
+          }
         </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          id="password"
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="4"
-          #password="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
-        />
-        <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
-          <div *ngIf="password.errors['required']">Password is required</div>
-          <div *ngIf="password.errors['minlength']">
-            Password must be at least 4 characters
-          </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="4"
+            #password="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+          @if (password.errors && f.submitted) {
+            <div class="invalid-feedback">
+              @if (password.errors['required']) {
+                <div>Password is required</div>
+              }
+              @if (password.errors['minlength']) {
+                <div>Password must be at least 4 characters</div>
+              }
+            </div>
+          }
         </div>
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        @if (f.submitted && isLoginFailed) {
+          <div class="alert alert-danger" role="alert">Login failed: {{ errorMessage }}</div>
+        }
+      </form>
+    }
+
+    @if (isLoggedIn) {
+      <div class="alert alert-success">Logged in as {{ roles }}.</div>
+    }
+
+    @if (isLoggedIn && redirectTo) {
+      <div class="d-grid">
+        <button class="btn btn-primary" (click)="navigateTo()">
+          {{ 'Navigate to ' + redirectTo + ' page' }}
+        </button>
       </div>
-
-      <div class="d-grid mb-3">
-        <button type="submit" class="btn btn-primary">Login</button>
-      </div>
-
-      <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
-        Login failed: {{ errorMessage }}
-      </div>
-    </form>
-
-    <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{ roles }}.
-    </div>
-
-    <div *ngIf="isLoggedIn && redirectTo" class="d-grid">
-      <button class="btn btn-primary" (click)="navigateTo()">
-        {{ "Navigate to " + redirectTo + " page" }}
-      </button>
-    </div>
+    }
   </div>
 </div>

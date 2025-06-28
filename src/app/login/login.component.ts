@@ -1,45 +1,42 @@
-import {Component, OnInit, signal} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { StorageService } from '../_services/storage.service';
-import {EventData} from "../_shared/event.class";
-import {EventBusService} from "../_shared/event-bus.service";
+import { EventData } from '../_shared/event.class';
+import { EventBusService } from '../_shared/event-bus.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgClass } from '@angular/common';
-import {ActivatedRoute, Router} from "@angular/router";
+import { NgClass } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    imports: [NgIf, FormsModule, NgClass]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  imports: [FormsModule, NgClass],
 })
 export class LoginComponent implements OnInit {
+  private authService = inject(AuthService);
+  private storageService = inject(StorageService);
+  private eventBusService = inject(EventBusService);
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+
   form: any = {
     username: null,
-    password: null
+    password: null,
   };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
-  redirectTo: string | null = "";
-
-
-  constructor(private authService: AuthService,
-              private storageService: StorageService,
-              private eventBusService: EventBusService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router
-              )
-    { }
+  redirectTo: string | null = '';
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
     } else {
-      this.activatedRoute.queryParamMap.subscribe((params) => {
-          this.redirectTo = params.get('redirect');
+      this.activatedRoute.queryParamMap.subscribe(params => {
+        this.redirectTo = params.get('redirect');
       });
     }
   }
@@ -59,7 +56,7 @@ export class LoginComponent implements OnInit {
       error: err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
-      }
+      },
     });
   }
 
@@ -68,6 +65,6 @@ export class LoginComponent implements OnInit {
   }
 
   navigateTo() {
-    this.router.navigate(["/", this.redirectTo]);
+    this.router.navigate(['/', this.redirectTo]);
   }
 }

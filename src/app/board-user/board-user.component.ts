@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../_services/user.service';
 
 @Component({
-    selector: 'app-board-user',
-    templateUrl: './board-user.component.html',
-    styleUrls: ['./board-user.component.css'],
-    standalone: true
+  selector: 'app-board-user',
+  templateUrl: './board-user.component.html',
+  styleUrls: ['./board-user.component.css'],
+  standalone: true,
 })
 export class BoardUserComponent implements OnInit {
-  content?: string;
+  private userService = inject(UserService);
 
-  constructor(private userService: UserService) { }
+  content?: string;
 
   ngOnInit(): void {
     this.userService.getUserBoard().subscribe({
@@ -28,7 +28,7 @@ export class BoardUserComponent implements OnInit {
         } else {
           this.content = `Error with status: ${err.status}`;
         }
-      }
+      },
     });
   }
 }

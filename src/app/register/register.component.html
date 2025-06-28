@@ -4,85 +4,93 @@
       id="profile-img"
       src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
       class="profile-img-card"
-      alt="profile image"
-    />
-    <form
-      *ngIf="!isSuccessful"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input
-          id="username"
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          minlength="3"
-          maxlength="20"
-          #username="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
-        />
-        <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors['required']">Username is required</div>
-          <div *ngIf="username.errors['minlength']">Username must be at least 3 characters</div>
-          <div *ngIf="username.errors['maxlength']">Username must be at most 20 characters</div>
+      alt="profile image" />
+    @if (!isSuccessful) {
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            name="username"
+            [(ngModel)]="form.username"
+            required
+            minlength="3"
+            maxlength="20"
+            #username="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && username.errors }" />
+          @if (username.errors && f.submitted) {
+            <div class="invalid-feedback">
+              @if (username.errors['required']) {
+                <div>Username is required</div>
+              }
+              @if (username.errors['minlength']) {
+                <div>Username must be at least 3 characters</div>
+              }
+              @if (username.errors['maxlength']) {
+                <div>Username must be at most 20 characters</div>
+              }
+            </div>
+          }
         </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          id="email"
-          type="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          email
-          #email="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
-        />
-        <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
-          <div *ngIf="email.errors['required']">Email is required</div>
-          <div *ngIf="email.errors['email']">Email must be a valid email address</div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.email"
+            required
+            email
+            #email="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
+          @if (email.errors && f.submitted) {
+            <div class="invalid-feedback">
+              @if (email.errors['required']) {
+                <div>Email is required</div>
+              }
+              @if (email.errors['email']) {
+                <div>Email must be a valid email address</div>
+              }
+            </div>
+          }
         </div>
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          id="password"
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="4"
-          #password="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
-        />
-        <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
-          <div *ngIf="password.errors['required']">Password is required</div>
-          <div *ngIf="password.errors['minlength']">Password must be at least 4 characters</div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="4"
+            #password="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+          @if (password.errors && f.submitted) {
+            <div class="invalid-feedback">
+              @if (password.errors['required']) {
+                <div>Password is required</div>
+              }
+              @if (password.errors['minlength']) {
+                <div>Password must be at least 4 characters</div>
+              }
+            </div>
+          }
         </div>
-      </div>
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+        @if (f.submitted && isSignUpFailed) {
+          <div class="alert alert-warning">Signup failed!<br />{{ errorMessage }}</div>
+        }
+      </form>
+    }
 
-      <div class="d-grid mb-3">
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-      </div>
-
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
-      </div>
-    </form>
-
-    <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
-    </div>
+    @if (isSuccessful) {
+      <div class="alert alert-success">Your registration is successful!</div>
+    }
   </div>
 </div>

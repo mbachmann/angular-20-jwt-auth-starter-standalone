@@ -1,28 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css'],
-    imports: [NgIf, FormsModule, NgClass]
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
+  imports: [FormsModule, NgClass],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
+  private authService = inject(AuthService);
+
   form: any = {
     username: null,
     email: null,
-    password: null
+    password: null,
   };
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit(): void {
     const { username, email, password } = this.form;
@@ -36,7 +33,7 @@ export class RegisterComponent implements OnInit {
       error: err => {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
-      }
+      },
     });
   }
 }

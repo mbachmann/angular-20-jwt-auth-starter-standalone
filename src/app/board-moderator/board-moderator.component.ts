@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../_services/user.service';
 
 @Component({
-    selector: 'app-board-moderator',
-    templateUrl: './board-moderator.component.html',
-    styleUrls: ['./board-moderator.component.css'],
-    standalone: true
+  selector: 'app-board-moderator',
+  templateUrl: './board-moderator.component.html',
+  styleUrls: ['./board-moderator.component.css'],
+  standalone: true,
 })
 export class BoardModeratorComponent implements OnInit {
-  content?: string;
+  private userService = inject(UserService);
 
-  constructor(private userService: UserService) { }
+  content?: string;
 
   ngOnInit(): void {
     this.userService.getModeratorBoard().subscribe({
@@ -28,7 +28,7 @@ export class BoardModeratorComponent implements OnInit {
         } else {
           this.content = `Error with status: ${err.status}`;
         }
-      }
+      },
     });
   }
 }
