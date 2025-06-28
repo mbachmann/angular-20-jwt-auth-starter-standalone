@@ -20,3 +20,9 @@ For JWT – Token based Authentication with Rest API,  3 endpoints:
 - POST `api/auth/signin` for User Login
 - POST `api/auth/signout` for User Logout
 
+## Verify JWT Authentication & Authorization
+
+- GET `api/test/user` for User
+- GET `api/test/mod` for Moderator
+- GET `api/test/admin` for Admin
+- GET `api/test/all` for Public
