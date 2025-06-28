@@ -3,7 +3,7 @@
 - Backend: https://github.com/mbachmann/spring-boot-3-starter-security.git
 - Frontend: https://github.com/mbachmann/angular-20-jwt-auth-starter-standalone.git
 
-Build Angular 17 JWT Authentication & Authorization example with Rest Api, HttpOnly Cookie and JWT (including HttpInterceptor, Router & Form Validation).
+Build Angular 20 JWT Authentication & Authorization example with Rest Api, HttpOnly Cookie and JWT (including HttpInterceptor, Router & Form Validation).
 - JWT Authentication Flow for User Registration (Signup) & User Login
 - Project Structure with HttpInterceptor, Router
 - Way to implement HttpInterceptor
