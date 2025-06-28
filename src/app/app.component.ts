@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
         console.log(res);
         this.storageService.clean();
         this.router.navigate(['/', 'home']).then(nav => {
-          if (nav) window.location.reload();
+          window.location.reload();
         });
       },
       error: err => {
