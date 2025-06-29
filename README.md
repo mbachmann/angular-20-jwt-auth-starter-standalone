@@ -50,7 +50,7 @@ A preconfigured shell script includes the build command:
 ```
 $  docker login
 $  docker login --username uportal --password
-$  docker push uportal/todo-app
+$  docker push uportal/angular-20-jwt-auth
 ```
 
 <br/>
@@ -72,7 +72,7 @@ Replace **uportal** with your **dockerhub id**.
 <br/>
 
 ```
-$  docker pull uportal/todo-app
+$  docker pull uportal/angular-20-jwt-auth
 ```
 
 <br/>
@@ -105,6 +105,7 @@ Delete containers:
 
 ```
 $  docker compose rm
+$  docker compose -f docker-compose-traefik-v3.yml rm
 ```
 
 
